@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 1368px;
+            height: 733px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/DistrictBoundary_1.js"></script>
+        <script src="data/Mines_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-3.2813972804050735,31.692259819826383],[-2.741164188698443,32.70177883934931]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_openstreetmap_0');
+        map.getPane('pane_openstreetmap_0').style.zIndex = 400;
+        var layer_openstreetmap_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_openstreetmap_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_openstreetmap_0;
+        map.addLayer(layer_openstreetmap_0);
+        function pop_DistrictBoundary_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM0_EN'] !== null ? autolinker.link(feature.properties['ADM0_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM0_SW'] !== null ? autolinker.link(feature.properties['ADM0_SW'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM0_PCODE'] !== null ? autolinker.link(feature.properties['ADM0_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM1_EN'] !== null ? autolinker.link(feature.properties['ADM1_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM1_PCODE'] !== null ? autolinker.link(feature.properties['ADM1_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM2_EN'] !== null ? autolinker.link(feature.properties['ADM2_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM2_PCODE'] !== null ? autolinker.link(feature.properties['ADM2_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DistrictBoundary_1_0() {
+            return {
+                pane: 'pane_DistrictBoundary_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '10,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,125,183,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DistrictBoundary_1');
+        map.getPane('pane_DistrictBoundary_1').style.zIndex = 401;
+        map.getPane('pane_DistrictBoundary_1').style['mix-blend-mode'] = 'normal';
+        var layer_DistrictBoundary_1 = new L.geoJson(json_DistrictBoundary_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DistrictBoundary_1',
+            layerName: 'layer_DistrictBoundary_1',
+            pane: 'pane_DistrictBoundary_1',
+            onEachFeature: pop_DistrictBoundary_1,
+            style: style_DistrictBoundary_1_0,
+        });
+        bounds_group.addLayer(layer_DistrictBoundary_1);
+        map.addLayer(layer_DistrictBoundary_1);
+        function pop_Mines_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start'] !== null ? autolinker.link(feature.properties['start'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_gr8tf11/Social Accountability Monitoring tools such as the Mine Site Assessment Tool serve to hold duty bearers accountable through awareness creation to agents of change in efforts to advocate '] !== null ? autolinker.link(feature.properties['group_gr8tf11/Social Accountability Monitoring tools such as the Mine Site Assessment Tool serve to hold duty bearers accountable through awareness creation to agents of change in efforts to advocate '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Name of the enumerator (Data collector)'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Name of the enumerator (Data collector)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Jinsia_ya_mhojiwa'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Jinsia_ya_mhojiwa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Jina_la_mhojiwa'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Jina_la_mhojiwa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Cheo_cha_mhojiwa'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Cheo_cha_mhojiwa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Taja_Cheo_Kingine'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Taja_Cheo_Kingine'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Namba_ya_simu'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Namba_ya_simu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Uzoefu_wako_katika_s_uchimbaji_wa_madini'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Uzoefu_wako_katika_s_uchimbaji_wa_madini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_wn1ga48/Enter a date'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_wn1ga48/Enter a date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/Company name'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/Company name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/Kituo_hiki_cha_uchim_i_kwa_muda_gani_sasa'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/Kituo_hiki_cha_uchim_i_kwa_muda_gani_sasa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Open-pit Mining'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Open-pit Mining'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Underground Mining'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Underground Mining'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Processing Only'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Processing Only'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Other operations'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/What type of mining operations does this company engage with?/Other operations'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/Specify other operations'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/Specify other operations'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/What is the estimated number of Workers at the Mining Site?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/What is the estimated number of Workers at the Mining Site?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/Idadi_ya_wanawake'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/Idadi_ya_wanawake'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/Idadi_ya_wanaume'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/Idadi_ya_wanaume'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_yc12q62/Is the mining site in operation year-round?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_yc12q62/Is the mining site in operation year-round?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/deep_well'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/deep_well'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/Well (underground)'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/Well (underground)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/Rivers'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/Rivers'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/steam'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/steam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/Lake'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/Lake'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/springs'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/springs'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/swamps'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/(WASH) What are primary sources of water used in mining operations?/swamps'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/deep_well'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/deep_well'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/shallow_wells'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/shallow_wells'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/rivers'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/rivers'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/steam'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/steam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/lake'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/lake'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/springs'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/springs'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/swamps'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Ni_vyanzo_gani_vya_m_matumizi_ya_binadamu/swamps'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Does your mining operation provide hygiene practices and facilities for workers?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Does your mining operation provide hygiene practices and facilities for workers?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/toilets'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/toilets'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/water_tapes'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/water_tapes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/water_tanks'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/water_tanks'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/waste_containers'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/waste_containers'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/other'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Orodhesha_nyenzo_za_usafi_wa_m/other'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_md5fq42/Taja_Nyingine'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_md5fq42/Taja_Nyingine'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Taja_aina_ya_vyoo_vinavyotumik/traditional_pit_latrine'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Taja_aina_ya_vyoo_vinavyotumik/traditional_pit_latrine'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Taja_aina_ya_vyoo_vinavyotumik/choo_cha_shimo_chenye_bomba_la_kutolea_h'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Taja_aina_ya_vyoo_vinavyotumik/choo_cha_shimo_chenye_bomba_la_kutolea_h'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Taja_aina_ya_vyoo_vinavyotumik/choo_chenye_shimo_la_kuhifadhia_maji_tak'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Taja_aina_ya_vyoo_vinavyotumik/choo_chenye_shimo_la_kuhifadhia_maji_tak'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Estimate the number of these Facilities in the Mining sites.'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Estimate the number of these Facilities in the Mining sites.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Estimate the number of these Facilities in the Mining sites._1'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Estimate the number of these Facilities in the Mining sites._1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Estimate the number of these Facilities in the Mining sites._2'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Estimate the number of these Facilities in the Mining sites._2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_ql2gw98/Are these facilities regularly maintained and cleaned?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_ql2gw98/Are these facilities regularly maintained and cleaned?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/How often are health and safety inspections conducted at the mining site?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/How often are health and safety inspections conducted at the mining site?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Does the company provide sanitation awareness to community members and mine workers?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Does the company provide sanitation awareness to community members and mine workers?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Are there ongoing initiatives or plans to enhance WASH practices at the mining site?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Are there ongoing initiatives or plans to enhance WASH practices at the mining site?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Does the company manage, prevent contamination and employ water treatment methods for environmental standards of local water sources?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Does the company manage, prevent contamination and employ water treatment methods for environmental standards of local water sources?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Tafadhali_elezea_ni_kwa_namna_gani'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Tafadhali_elezea_ni_kwa_namna_gani'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Does the company manage, prevent contamination and employ water treatment methods for environmental standards of local water sources?_1'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Does the company manage, prevent contamination and employ water treatment methods for environmental standards of local water sources?_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Tafadhali_elezea_ni_kwa_namna_gani_001'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Tafadhali_elezea_ni_kwa_namna_gani_001'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Does the company manage, prevent contamination and employ water treatment methods for environmental standards of local water sources?_2'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Does the company manage, prevent contamination and employ water treatment methods for environmental standards of local water sources?_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Tafadhali_elezea_ni_kwa_namna_gani_002'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Tafadhali_elezea_ni_kwa_namna_gani_002'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_xx8po50/(Water Quality): For this mine site, does the company publicly disclose, on a regular basis, water quality data for each monitoring point?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_xx8po50/(Water Quality): For this mine site, does the company publicly disclose, on a regular basis, water quality data for each monitoring point?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_xx8po50/For this mine site, does the company highlight when and where water quality falls below safety limits?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_xx8po50/For this mine site, does the company highlight when and where water quality falls below safety limits?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_xx8po50/For this mine site, does the company Involve affected communities in making decisions to manage water quality?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_xx8po50/For this mine site, does the company Involve affected communities in making decisions to manage water quality?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_xx8po50/For this mine site, does the company Actively involve women from affected communities in making  decisions to manage water quality?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_xx8po50/For this mine site, does the company Actively involve women from affected communities in making  decisions to manage water quality?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_cw2uz24/(Water Quantity): For this mine site, does the company publicly disclose, on a regular basis, the amount of water it is withdrawing from the environment?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_cw2uz24/(Water Quantity): For this mine site, does the company publicly disclose, on a regular basis, the amount of water it is withdrawing from the environment?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_cw2uz24/Does the company Discuss with affected communities how to manage access to shared water resources?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_cw2uz24/Does the company Discuss with affected communities how to manage access to shared water resources?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_cw2uz24/Does the company actively involve women from affected communities in discussing how to manage access to shared water resources?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_cw2uz24/Does the company actively involve women from affected communities in discussing how to manage access to shared water resources?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_cw2uz24/Does the company Involve affected communities in the decisions made to reduce its water consumption?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_cw2uz24/Does the company Involve affected communities in the decisions made to reduce its water consumption?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_rl2el90/(Tailings): For this mine site, does the company publicly disclose the exact location of all its tailings storage areas?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_rl2el90/(Tailings): For this mine site, does the company publicly disclose the exact location of all its tailings storage areas?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_rl2el90/Does the company ensure all its tailings storage areas are signed in locally understandable ways and made safe for people and animals?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_rl2el90/Does the company ensure all its tailings storage areas are signed in locally understandable ways and made safe for people and animals?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_rl2el90/Does the company  publicly disclose the exact geographic area that a failure of its  tailings facilities can affect?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_rl2el90/Does the company  publicly disclose the exact geographic area that a failure of its  tailings facilities can affect?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_rl2el90/Does the company regularly test the sirens and other warning systems to ensure that workers and affected communities will be alerted in case of  any tailings incidents?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_rl2el90/Does the company regularly test the sirens and other warning systems to ensure that workers and affected communities will be alerted in case of  any tailings incidents?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_nh3kj31/(Community Complaints and Grievances): For this mine site, does the company have a grievance mechanism for affected communities and individuals to register complaints and g'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_nh3kj31/(Community Complaints and Grievances): For this mine site, does the company have a grievance mechanism for affected communities and individuals to register complaints and g'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_nh3kj31/Does the company ensure that male and female staff members are available for  receiving and processing grievances so that men and women  from communities can speak to someo'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_nh3kj31/Does the company ensure that male and female staff members are available for  receiving and processing grievances so that men and women  from communities can speak to someo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_nh3kj31/Does the company publicly disclose the number and types of  complaints/grievances registered by affected communities and individuals?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_nh3kj31/Does the company publicly disclose the number and types of  complaints/grievances registered by affected communities and individuals?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_nh3kj31/Does the company discuss with affected communities the measures it is taking to avoid repetition of the same complaints/grievances?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_nh3kj31/Does the company discuss with affected communities the measures it is taking to avoid repetition of the same complaints/grievances?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_be2he68/(Worker Complaints and Grievances): For this mine site, does the company have a grievance mechanism for its employees and the people who work for contractors to register  c'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_be2he68/(Worker Complaints and Grievances): For this mine site, does the company have a grievance mechanism for its employees and the people who work for contractors to register  c'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_be2he68/Does the company ensure that male and female staff members are available for receiving and processing worker grievances so that men and women workers can speak to someone o'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_be2he68/Does the company ensure that male and female staff members are available for receiving and processing worker grievances so that men and women workers can speak to someone o'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_be2he68/Does the company publicly disclose the number and types of complaints/grievances registered by its employees and the people who work for contractors?'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_be2he68/Does the company publicly disclose the number and types of complaints/grievances registered by its employees and the people who work for contractors?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_be2he68/Does the company discuss with employees, people who work for contractors, and their representatives the measures it is taking to avoid the repetition of the same complaints'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_be2he68/Does the company discuss with employees, people who work for contractors, and their representatives the measures it is taking to avoid the repetition of the same complaints'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rekodi_GPS_pointi'] !== null ? autolinker.link(feature.properties['Rekodi_GPS_pointi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_latitude'] !== null ? autolinker.link(feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_longitude'] !== null ? autolinker.link(feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_altitude'] !== null ? autolinker.link(feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_altitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_precision'] !== null ? autolinker.link(feature.properties['group_tu1ee45/_Rekodi_GPS_pointi_precision'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/Tumia_kamera_kupiga_i_ya_vifaa_vya_usafi'] !== null ? autolinker.link(feature.properties['group_tu1ee45/Tumia_kamera_kupiga_i_ya_vifaa_vya_usafi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/Tumia_kamera_kupiga_i_ya_vifaa_vya_usafi_URL'] !== null ? autolinker.link(feature.properties['group_tu1ee45/Tumia_kamera_kupiga_i_ya_vifaa_vya_usafi_URL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa'] !== null ? autolinker.link(feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa_URL'] !== null ? autolinker.link(feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa_URL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa_001'] !== null ? autolinker.link(feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa_001'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa_001_URL'] !== null ? autolinker.link(feature.properties['group_tu1ee45/Tumia_kamera_kupiga_lenye_kutoa_taarifa_001_URL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['group_tu1ee45/group_dl2rv38/Provide any additional comments, suggestions, or insights related to WASH practices at the mining site:'] !== null ? autolinker.link(feature.properties['group_tu1ee45/group_dl2rv38/Provide any additional comments, suggestions, or insights related to WASH practices at the mining site:'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_id'] !== null ? autolinker.link(feature.properties['_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_uuid'] !== null ? autolinker.link(feature.properties['_uuid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_submission_time'] !== null ? autolinker.link(feature.properties['_submission_time'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_validation_status'] !== null ? autolinker.link(feature.properties['_validation_status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_notes'] !== null ? autolinker.link(feature.properties['_notes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_status'] !== null ? autolinker.link(feature.properties['_status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_submitted_by'] !== null ? autolinker.link(feature.properties['_submitted_by'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['__version__'] !== null ? autolinker.link(feature.properties['__version__'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_tags'] !== null ? autolinker.link(feature.properties['_tags'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_index'] !== null ? autolinker.link(feature.properties['_index'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Mines_2_0() {
+            return {
+                pane: 'pane_Mines_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/poi_mine.svg',
+            iconSize: [15.2, 15.2]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Mines_2');
+        map.getPane('pane_Mines_2').style.zIndex = 402;
+        map.getPane('pane_Mines_2').style['mix-blend-mode'] = 'normal';
+        var layer_Mines_2 = new L.geoJson(json_Mines_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Mines_2',
+            layerName: 'layer_Mines_2',
+            pane: 'pane_Mines_2',
+            onEachFeature: pop_Mines_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Mines_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Mines_2);
+        map.addLayer(layer_Mines_2);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Mines_2.png" /> Mines': layer_Mines_2,'<img src="legend/DistrictBoundary_1.png" /> District Boundary': layer_DistrictBoundary_1,"openstreetmap": layer_openstreetmap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
